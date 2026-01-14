@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Agent</title>
+</head>
+<style>
+  h2{
+    text-align:center;
+    color:white;
+  }
+  body{
+    background-color:#36454F;
+  }
+  input{
+    display:block;
+    margin:0 auto;
+  }
+  button{
+    display:block;
+    position:absolute;
+    left:150px;
+    top:120px;
+    height:40px;
+    width:70px;
+    background-color:grey;
+    h4{
+      position:absolute;
+      left:17px;
+      top:-6px;
+    }
+  }
+</style>
+<body>
+  <h2>My Ai Agent</h4>
+
+  <input id="msg" placeholder="Ask anything..." />
+  <button onclick="send()"><h4>Send<h4></h4></button>
+
+  <p id="reply"></p>
+
+  <script>
+    async function send() {
+      const msg = document.getElementById("msg").value;
+
+      const res = await fetch("http://localhost:3000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      });
+
+      const data = await res.json();
+      document.getElementById("reply").innerText = data.reply;
+    }
+  </script>
+</body>
+</html>
